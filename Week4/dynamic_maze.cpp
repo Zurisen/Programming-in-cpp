@@ -75,5 +75,8 @@ int main(){
     cin >> action;
   }
 
+  for (int i=0; i<nrows; i++){
+    delete[] playground[i]; // delete allocated maze
+  }
 
 }
