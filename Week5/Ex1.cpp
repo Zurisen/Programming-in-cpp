@@ -11,6 +11,7 @@ int main(){
   
   string input;
   int iter = 0;
+  // storing cin input
   while (cin>>input){
     if (iter%2 == 0){
       letter_vec.push_back(input[0]);
@@ -22,7 +23,7 @@ int main(){
     iter++;
   }
 
-
+  // necessary for the loop, sometimes fails just with int? :s
   typedef vector<int>::size_type vec_sz;
 
   // finding unique classes
@@ -30,7 +31,7 @@ int main(){
   letter_unique.erase( unique( letter_unique.begin(), letter_unique.end() ), letter_unique.end() );
 
   vector<int> output_vec;
-  vector<int> classx;
+  vector<int> classx; // temporary array for performing the sorting in every class
   for (vec_sz i=0; i<letter_unique.size(); i++){
     for (vec_sz j=0; j<num_vec.size(); j++){
       if (letter_vec[j]==letter_unique[i]){
@@ -43,7 +44,7 @@ int main(){
     }
     classx.clear();
   }
- 
+  // print the result 
   for (vec_sz i=0; i<output_vec.size(); i++){
     cout << output_vec[i] << endl;
   }

@@ -3,56 +3,47 @@
 #include <algorithm>
 #include <map>
 
-
 using namespace std;
 
 int main(){
-  map<char,int> df;
+  map<char,vector<int>> dataframe;
+  map<int, char> index;
   char letter;
   int num;
- 
   string input;
   int iter=0;
-  /*
+  unsigned int input_len = 0;
+ 
+  // read cin 
   while (cin>>input){
-    if (iter%2 == 0){
+    if (iter%2==0){
       letter = input[0];
     }else{
       num = stoi(input);
-      df.insert(pair<char,int>(letter, num));
+      if (dataframe.count(letter)>0){
+        dataframe[letter].push_back(num);
+        input_len++;
+      }else{
+        dataframe.insert(pair<char,vector<int>>(letter,vector<int>{num}));
+        input_len++;
+      }
     }
     iter++;
   }
-  */
-
-  vector<int> avec{3,1,4};
-  vector<int> bvec{2,1,2,6};
-  typedef vector<int>::size_type sz;
-  //map<char,vector<int>> amap;
-  //map<char,vector<int>> bmap;
-  //amap.insert(pair<char,vector<int>>('a',avec));
-  //bmap.insert(pair<char,vector<int>>('b',bvec));
-  
-  sz classes_count[2] = {};
+  // initialize output vector 
   vector<int> out_vec;
-  int input_len = 7;
+  // start the loop 
+  map<char,vector<int>>::iterator itr;
   for (int i=0; i<input_len; i++){
-    if (classes_count[0]<avec.size()){
-      out_vec.push_back(avec[classes_count[0]]);
-      classes_count[0]++;
-      i++;
+    for (itr=dataframe.begin(); itr!=dataframe.end(); ++itr){
+        if (itr->second.size()>0){
+          out_vec.push_back(itr->second[0]);
+          itr->second.erase(itr->second.begin());
+        }
     }
-    if (classes_count[1]<bvec.size()){
-      out_vec.push_back(bvec[classes_count[1]]);
-      classes_count[1]++;
-    }
-
   }
-
-
-  for (int i=0; i<input_len; i++){
+  for (int i=0; i<out_vec.size(); i++){
     cout << out_vec[i] << endl;
   }
-
   return 0;
 }
